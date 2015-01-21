@@ -115,7 +115,6 @@ class MysqlMigrate {
 
   function process_file($file) {
     $this->log("processing file: $file");
-    return;
     $commands = file_get_contents($file);
     $this->sql($commands);
   }
