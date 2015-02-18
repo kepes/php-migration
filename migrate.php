@@ -23,6 +23,7 @@
  *
  * @author Péter Képes - https://github.com/kepes
  */
+ini_set('memory_limit', '512M');
 $options = getopt("hm:d:u:p:c:");
 
 if ($options['h'] === false) {
@@ -77,7 +78,8 @@ class MysqlMigrate {
     $date_in_db = $this->get_last_migration_date();
 
     foreach ($files as $file) {
-      $date_string = explode('_', $file, 2)[0];
+      $date_string = explode('_', $file, 2);
+      $date_string = $date_string[0];
       $file_date = DateTime::createFromFormat("YmdHis", $date_string);
       if (!is_dir($file) && $file_date !== false && ($date_in_db == null || $date_in_db < $file_date) ) {
         $this->process_file($file);
